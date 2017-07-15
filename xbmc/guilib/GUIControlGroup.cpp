@@ -452,6 +452,22 @@ CGUIControl *CGUIControlGroup::GetFirstFocusableControl(int id)
   return NULL;
 }
 
+void CGUIControlGroup::WalkControls(std::function<void(CGUIControl*)> callback)
+{
+  for (CGUIControl* control : m_children)
+  {
+    CGUIControlGroup* groupControl = dynamic_cast<CGUIControlGroup*>(control);
+    if (groupControl != nullptr)
+    {
+      // Walk control group recursively
+      groupControl->WalkControls(callback);
+    }
+
+    // Visit control
+    callback(control);
+  }
+}
+
 void CGUIControlGroup::AddControl(CGUIControl *control, int position /* = -1*/)
 {
   if (!control) return;

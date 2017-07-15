@@ -173,7 +173,8 @@ bool CServiceManager::InitStageThree(const std::shared_ptr<CProfileManager>& pro
     *m_peripherals,
     *profileManager,
     *m_addonMgr,
-    *m_binaryAddonManager));
+    *m_binaryAddonManager,
+    *m_inputManager));
 
   m_contextMenuManager->Init();
   m_PVRManager->Init();

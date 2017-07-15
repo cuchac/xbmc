@@ -13,6 +13,7 @@
 \brief
 */
 
+#include <functional>
 #include <vector>
 
 #include "GUIControlLookup.h"
@@ -56,6 +57,7 @@ public:
   int GetFocusedControlID() const;
   CGUIControl *GetFocusedControl() const;
   virtual CGUIControl *GetFirstFocusableControl(int id);
+  void WalkControls(std::function<void(CGUIControl*)> callback);
 
   virtual void AddControl(CGUIControl *control, int position = -1);
   bool InsertControl(CGUIControl *control, const CGUIControl *insertPoint);

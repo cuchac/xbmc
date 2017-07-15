@@ -36,6 +36,7 @@ public:
   void OnDown() override;
   bool GetCondition(int condition, int data) const override;
   std::string GetLabel(int info) const override;
+
 protected:
   bool MoveUp(bool wrapAround) override;
   bool MoveDown(bool wrapAround) override;

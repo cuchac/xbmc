@@ -28,6 +28,7 @@ namespace GAME
     virtual CGUIGameController* Clone(void) const override;
     virtual void Render(void) override;
 
+    const ControllerPtr& GetController() { return m_currentController; }
     void ActivateController(const ControllerPtr& controller);
 
   private:
