@@ -8,6 +8,7 @@
 
 #include "GameAgentManager.h"
 
+#include "GameAgent.h"
 #include "ServiceBroker.h"
 #include "games/addons/GameClient.h"
 #include "games/addons/input/GameClientInput.h"
@@ -131,17 +132,22 @@ bool CGameAgentManager::OnButtonPress(MOUSE::BUTTON_ID button)
   return false;
 }
 
-PERIPHERALS::PeripheralVector CGameAgentManager::GetAgents() const
+GameAgentVec CGameAgentManager::GetAgents() const
 {
-  PERIPHERALS::PeripheralVector agents;
+  GameAgentVec agents;
+
+  PERIPHERALS::PeripheralVector peripherals;
 
   if (m_bHasKeyboard)
-    m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_KEYBOARD);
+    m_peripheralManager.GetPeripheralsWithFeature(peripherals, PERIPHERALS::FEATURE_KEYBOARD);
 
   if (m_bHasMouse)
-    m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_MOUSE);
+    m_peripheralManager.GetPeripheralsWithFeature(peripherals, PERIPHERALS::FEATURE_MOUSE);
 
-  m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_JOYSTICK);
+  m_peripheralManager.GetPeripheralsWithFeature(peripherals, PERIPHERALS::FEATURE_JOYSTICK);
+
+  for (const auto& peripheral : peripherals)
+    agents.emplace_back(std::make_unique<CGameAgent>(peripheral));
 
   return agents;
 }

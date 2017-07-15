@@ -18,10 +18,12 @@ namespace
 // Supported control types. Keep sorted.
 const std::set<CGUIControl::GUICONTROLTYPES> supportedTypes = {
   // clang-format off
+  CGUIControl::GUICONTAINER_LIST,
   CGUIControl::GUICONTROL_BORDEREDIMAGE,
   CGUIControl::GUICONTROL_CAMERA,
   CGUIControl::GUICONTROL_GAME,
   CGUIControl::GUICONTROL_GAMECONTROLLER,
+  CGUIControl::GUICONTROL_GAMECONTROLLERLIST,
   CGUIControl::GUICONTROL_GAMEENGINE,
   CGUIControl::GUICONTROL_IMAGE,
   CGUIControl::GUICONTROL_LISTGROUP,
