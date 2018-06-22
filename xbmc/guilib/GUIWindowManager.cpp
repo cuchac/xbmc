@@ -147,6 +147,7 @@
 #include "games/controllers/windows/GUIControllerWindow.h"
 #include "games/dialogs/osd/DialogGameAdvancedSettings.h"
 #include "games/dialogs/osd/DialogGameOSD.h"
+#include "games/dialogs/osd/DialogGameRewind.h"
 #include "games/dialogs/osd/DialogGameSaves.h"
 #include "games/dialogs/osd/DialogGameStretchMode.h"
 #include "games/dialogs/osd/DialogGameVideoFilter.h"
@@ -317,6 +318,7 @@ void CGUIWindowManager::CreateWindows()
   Add(new GAME::CDialogGameVolume);
   Add(new GAME::CDialogGameAdvancedSettings);
   Add(new GAME::CDialogGameVideoRotation);
+  Add(new GAME::CDialogGameRewind);
   Add(new GAME::CDialogInGameSaves);
   Add(new RETRO::CGameWindowFullScreen);
 }
@@ -436,6 +438,7 @@ bool CGUIWindowManager::DestroyWindows()
     DestroyWindow(WINDOW_DIALOG_GAME_VOLUME);
     DestroyWindow(WINDOW_DIALOG_GAME_ADVANCED_SETTINGS);
     DestroyWindow(WINDOW_DIALOG_GAME_VIDEO_ROTATION);
+    DestroyWindow(WINDOW_DIALOG_GAME_REWIND);
     DestroyWindow(WINDOW_DIALOG_IN_GAME_SAVES);
     DestroyWindow(WINDOW_FULLSCREEN_GAME);
 
