@@ -15,6 +15,7 @@
 #include "addons/AddonManager.h"
 #include "cores/DataCacheCore.h"
 #include "cores/IPlayerCallback.h"
+#include "cores/RetroPlayer/environment/Environment.h"
 #include "cores/RetroPlayer/guibridge/GUIGameRenderManager.h"
 #include "cores/RetroPlayer/guiplayback/GUIPlaybackControl.h"
 #include "cores/RetroPlayer/playback/IPlayback.h"
