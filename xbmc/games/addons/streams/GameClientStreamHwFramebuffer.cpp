@@ -16,7 +16,8 @@ using namespace KODI;
 using namespace GAME;
 
 CGameClientStreamHwFramebuffer::CGameClientStreamHwFramebuffer(IHwFramebufferCallback& callback) :
-  m_callback(callback)
+  m_callback(callback),
+  m_stream(nullptr)
 {
 }
 
@@ -34,7 +35,8 @@ bool CGameClientStreamHwFramebuffer::OpenStream(RETRO::IRetroPlayerStream* strea
   if (stream->OpenStream(renderingProperties))
   {
     m_stream = stream;
-    m_callback.HardwareContextReset();
+    //TODO guess this needs to be called later
+    //m_callback.HardwareContextReset();
   }
 
   return m_stream != nullptr;
@@ -48,6 +50,7 @@ void CGameClientStreamHwFramebuffer::CloseStream()
     m_stream = nullptr;
   }
 }
+
 bool CGameClientStreamHwFramebuffer::GetBuffer(unsigned int width, unsigned int height, game_stream_buffer& buffer)
 {
   if (buffer.type != GAME_STREAM_HW_FRAMEBUFFER)
