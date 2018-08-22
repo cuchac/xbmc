@@ -23,12 +23,13 @@
 
 using namespace KODI;
 using namespace RETRO;
+using namespace GAME;
 
 #define REWIND_FACTOR  0.25  // Rewind at 25% of gameplay speed
 
 CReversiblePlayback::CReversiblePlayback(GAME::CGameClient* gameClient, double fps, size_t serializeSize) :
   m_gameClient(gameClient),
-  m_gameLoop(this, fps),
+  m_gameLoop(this, this, fps),
   m_savestateDatabase(new CSavestateDatabase),
   m_totalFrameCount(0),
   m_pastFrameCount(0),
@@ -321,4 +322,14 @@ void CReversiblePlayback::UpdateMemoryStream()
     m_totalTimeMs = 0;
     m_cacheTimeMs = 0;
   }
+}
+
+void CReversiblePlayback::HardwareContextReset()
+{
+  m_gameClient->HardwareContextReset();
+}
+
+void CReversiblePlayback::CreateHwContext()
+{
+  m_gameClient->CreateHwContext();
 }
