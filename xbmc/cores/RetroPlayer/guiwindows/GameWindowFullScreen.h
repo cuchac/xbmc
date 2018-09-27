@@ -39,10 +39,6 @@ namespace RETRO
     void OnWindowLoaded() override;
     void OnDeinitWindow(int nextWindowID) override;
 
-    // Input functions
-    void RegisterActionHandler(KODI::KEYBOARD::IKeyboardDriverHandler* handler);
-    void UnregisterActionHandler(KODI::KEYBOARD::IKeyboardDriverHandler* handler);
-
   protected:
     // implementation of CGUIWindow
     void OnInitWindow() override;
