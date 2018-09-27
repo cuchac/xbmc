@@ -2,7 +2,8 @@ set(SOURCES Action.cpp
             ActionTranslator.cpp
 )
 
-set(HEADERS Action.h
+set(HEADERS interfaces/IActionHandler.h
+            Action.h
             ActionIDs.h
             ActionTranslator.h
 )
