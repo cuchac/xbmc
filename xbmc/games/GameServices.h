@@ -27,6 +27,11 @@ class CPeripherals;
 
 namespace KODI
 {
+namespace DATASTORE
+{
+  class CDataStore;
+}
+
 namespace RETRO
 {
 class CGUIGameRenderManager;
@@ -66,6 +71,8 @@ public:
 
   SHADER::CShaderPresetFactory& VideoShaders() { return *m_videoShaders; }
 
+  DATASTORE::CDataStore& GameDataStore() { return *m_dataStore; }
+
 private:
   // Construction parameters
   CControllerManager& m_controllerManager;
@@ -75,6 +82,7 @@ private:
   // Game services
   std::unique_ptr<CGameSettings> m_gameSettings;
   std::unique_ptr<SHADER::CShaderPresetFactory> m_videoShaders;
+  std::unique_ptr<DATASTORE::CDataStore> m_dataStore;
 };
 } // namespace GAME
 } // namespace KODI
