@@ -130,6 +130,7 @@ set(required_deps ASS
                   Iconv
                   LibDvd
                   LMDB
+                  LZ4
                   Lzo2
                   OpenSSL>=1.0.2
                   PCRE
