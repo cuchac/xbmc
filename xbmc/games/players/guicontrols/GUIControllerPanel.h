@@ -52,7 +52,7 @@ namespace GAME
     ControllerVector GetControllers(unsigned int column, unsigned int row) override;
 
     // Game window interface
-    void LoadControllers();
+    void UpdateControllers();
 
   private:
     void InitializeBaseContainer();

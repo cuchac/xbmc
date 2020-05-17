@@ -57,10 +57,10 @@ void CGUIPlayerWindow::DoProcess(unsigned int currentTime, CDirtyRegionList &dir
 
   // Load controllers so that they will be displayed in the GUI
   if (m_playerControl != nullptr)
-    m_playerControl->LoadControllers();
+    m_playerControl->UpdateControllers();
 
   if (m_controllerControl != nullptr)
-    m_controllerControl->LoadControllers();
+    m_controllerControl->UpdateControllers();
 
   //! @todo Unfade player texture and remove focus
 }
@@ -107,8 +107,8 @@ void CGUIPlayerWindow::OnInitWindow()
   m_controllerPanel = dynamic_cast<CGUIControllerPanel*>(GetControl(CONTROL_CONTROLLER_PANEL));
 
   // Connect to GUI interface
-  m_playerControl = dynamic_cast<CGUIControllerPanel*>(GetControl(CONTROL_PLAYER_PANEL));
-  m_controllerControl = dynamic_cast<CGUIPlayerPanel*>(GetControl(CONTROL_CONTROLLER_PANEL));
+  m_playerControl = dynamic_cast<CGUIPlayerPanel*>(GetControl(CONTROL_PLAYER_PANEL));
+  m_controllerControl = dynamic_cast<CGUIControllerPanel*>(GetControl(CONTROL_CONTROLLER_PANEL));
 
   GameClientPtr gameClient = GetGameClient();
 
@@ -148,7 +148,7 @@ void CGUIPlayerWindow::OnInitWindow()
     if (m_playerPanel != nullptr)
     {
       m_playerPanel->SetPlayerCount(maxPlayers);
-      m_playerPanel->SetAvatarSize(itemSize);
+      m_playerPanel->SetGameClient(gameClient);
     }
   }
   else

@@ -41,12 +41,12 @@ namespace GAME
     CGUIPlayerPanel *Clone() const override { return new CGUIPlayerPanel(*this); };
 
     // implementation of IPlayerPanel
-    void SetAvatarSize(unsigned int sizePx) override { m_avatarSize = sizePx; }
     void SetPlayerCount(unsigned int playerCount) override { m_playerCount = playerCount; }
     void OnSelect(unsigned int index) override;
+    void SetGameClient(GameClientPtr gameClient) override { m_gameClient = gameClient; }
 
     // Game window interface
-    void LoadControllers();
+    void UpdateControllers();
 
   private:
     // GUI properties
@@ -55,11 +55,8 @@ namespace GAME
     CGUILabel m_label;
 
     // Player properties
-    unsigned int m_avatarSize = 0;
     unsigned int m_playerCount = 0;
-
-    void *m_focusedLayout = nullptr; //! @todo
-
+    GameClientPtr m_gameClient;
 
     static const CScroller m_scroller; //! @todo
   };

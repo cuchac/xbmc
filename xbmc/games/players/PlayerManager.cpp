@@ -42,32 +42,13 @@ CPlayerManager::~CPlayerManager()
   m_peripheralManager.UnregisterObserver(this);
 }
 
-void CPlayerManager::OnEnable()
-{
-  using namespace PERIPHERALS;
-
-  PeripheralVector peripherals;
-  m_peripheralManager.GetPeripheralsWithFeature(peripherals, FEATURE_JOYSTICK);
-  m_peripheralManager.GetPeripheralsWithFeature(peripherals, FEATURE_KEYBOARD);
-  m_peripheralManager.GetPeripheralsWithFeature(peripherals, FEATURE_MOUSE);
-
-
-  //! @todo
-}
-
-void CPlayerManager::OnDisable()
-{
-  //! @todo
-}
-
 void CPlayerManager::Notify(const Observable& obs, const ObservableMessage msg)
 {
   switch (msg)
   {
   case ObservableMessagePeripheralsChanged:
   {
-    //! @todo
-    OnEnable();
+    OnJoystickEvent();
     break;
   }
   default:
@@ -104,6 +85,15 @@ void CPlayerManager::OnButtonRelease(MOUSE::BUTTON_ID button)
   OnMouseAction();
 }
 
+void CPlayerManager::OnJoystickEvent()
+{
+  //! @todo
+  using namespace PERIPHERALS;
+
+  PeripheralVector peripherals;
+  m_peripheralManager.GetPeripheralsWithFeature(peripherals, FEATURE_JOYSTICK);
+}
+
 void CPlayerManager::OnKeyboardAction()
 {
   if (!m_bHasKeyboard)
@@ -111,6 +101,10 @@ void CPlayerManager::OnKeyboardAction()
     m_bHasKeyboard = true;
 
     //! @todo Notify of state update
+    using namespace PERIPHERALS;
+
+    PeripheralVector peripherals;
+    m_peripheralManager.GetPeripheralsWithFeature(peripherals, FEATURE_KEYBOARD);
   }
 }
 
@@ -121,5 +115,9 @@ void CPlayerManager::OnMouseAction()
     m_bHasMouse = true;
 
     //! @todo Notify of state update
+    using namespace PERIPHERALS;
+
+    PeripheralVector peripherals;
+    m_peripheralManager.GetPeripheralsWithFeature(peripherals, FEATURE_MOUSE);
   }
 }

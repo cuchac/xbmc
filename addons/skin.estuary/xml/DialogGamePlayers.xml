@@ -64,6 +64,20 @@
 							<font>font27_title</font>
 							<textcolor>white</textcolor>
 							<orientation>horizontal</orientation>
+							<itemlayout>
+								<control type="gamecontroller">
+									<description>Game controller icon</description>
+									<width>512</width>
+									<height>512</height>
+								</control>
+							</itemlayout>
+							<focusedlayout>
+								<control type="gamecontroller">
+									<description>Game controller icon</description>
+									<width>512</width>
+									<height>512</height>
+								</control>
+							</focusedlayout>
 						</control>
 					</control>
 					<control type="group">

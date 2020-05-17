@@ -55,8 +55,8 @@ namespace GAME
     IControllerPanel *m_controllerPanel = nullptr;
 
     // GUI interface
-    CGUIControllerPanel* m_playerControl = nullptr;
-    CGUIPlayerPanel* m_controllerControl = nullptr;
+    CGUIPlayerPanel* m_playerControl = nullptr;
+    CGUIControllerPanel* m_controllerControl = nullptr;
   };
 }
 }

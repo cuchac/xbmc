@@ -67,7 +67,7 @@ CGUIControllerPanel::~CGUIControllerPanel()
 {
 }
 
-void CGUIControllerPanel::LoadControllers()
+void CGUIControllerPanel::UpdateControllers()
 {
   //! @todo Use correct controller, for now use default
   CGameServices& gameServices = CServiceBroker::GetGameServices();
@@ -75,8 +75,8 @@ void CGUIControllerPanel::LoadControllers()
 
   std::array<CGUIListItemLayout*, 2> layouts{
     {
-      CGUIBaseContainer::m_layout,
-      CGUIBaseContainer::m_focusedLayout,
+      m_layout,
+      m_focusedLayout,
     }
   };
 
@@ -128,15 +128,15 @@ void CGUIControllerPanel::SetGrid(const CControllerGrid &grid)
   m_grid.reset(new CControllerGrid(grid));
 
   // Update layouts
-  if (CGUIBaseContainer::m_layout)
+  if (m_layout)
   {
-    CGUIBaseContainer::m_layout->SetWidth(GetItemSize());
-    CGUIBaseContainer::m_layout->SetHeight(GetItemSize());
+    m_layout->SetWidth(GetItemSize());
+    m_layout->SetHeight(GetItemSize());
   }
-  if (CGUIBaseContainer::m_focusedLayout)
+  if (m_focusedLayout)
   {
-    CGUIBaseContainer::m_focusedLayout->SetWidth(GetItemSize());
-    CGUIBaseContainer::m_focusedLayout->SetHeight(GetItemSize());
+    m_focusedLayout->SetWidth(GetItemSize());
+    m_focusedLayout->SetHeight(GetItemSize());
   }
 }
 

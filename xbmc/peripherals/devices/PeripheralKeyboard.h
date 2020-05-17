@@ -29,6 +29,7 @@ namespace PERIPHERALS
     void RegisterKeyboardDriverHandler(KODI::KEYBOARD::IKeyboardDriverHandler* handler, bool bPromiscuous) override;
     void UnregisterKeyboardDriverHandler(KODI::KEYBOARD::IKeyboardDriverHandler* handler) override;
     CDateTime LastActive() override { return m_lastActive; }
+    KODI::GAME::ControllerPtr ControllerProfile() override;
 
     // implementation of IKeyboardDriverHandler
     bool OnKeyPress(const CKey& key) override;

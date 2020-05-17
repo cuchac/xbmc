@@ -19,8 +19,11 @@
  */
 
 #include "GUIPlayerPanel.h"
+#include "games/addons/GameClient.h"
+#include "games/addons/input/GameClientInput.h"
 #include "games/controllers/guicontrols/GUIGameController.h"
 #include "games/controllers/Controller.h"
+#include "games/players/listproviders/GUIPlayerProvider.h"
 #include "games/players/windows/GUIPlayerWindowDefines.h"
 #include "games/GameServices.h" //! @todo
 #include "guilib/GUIListItemLayout.h"
@@ -45,43 +48,53 @@ CGUIPanelContainer(parentID, controlID, posX, posY, width, height, HORIZONTAL, m
   m_imgBackground(0, 0, 0, 0, textureBackground),
   m_label(0, 0, 0, 0, labelInfo)
 {
+  // Initialize CGUIBaseContainer
+  m_listProvider = new CGUIPlayerProvider(GetParentID());
 }
 
-void CGUIPlayerPanel::LoadControllers()
+void CGUIPlayerPanel::UpdateControllers()
 {
-  //! @todo Use correct controller, for now use default
-  CGameServices& gameServices = CServiceBroker::GetGameServices();
-  ControllerPtr defaultController = gameServices.GetDefaultController();
-
-  std::array<CGUIListItemLayout*, 2> layouts{
-    {
-      CGUIBaseContainer::m_layout,
-      CGUIBaseContainer::m_focusedLayout,
-    }
-  };
-
-  for (auto layout : layouts)
+  // Get controllers that currently belong to players
+  if (m_gameClient)
   {
-    if (layout == nullptr)
-      continue;
+    auto playerProvider = static_cast<CGUIPlayerProvider*>(m_listProvider);
 
-    layout->WalkControls(
-      [&defaultController](CGUIControl* control) -> void
+    ControllerVector players = m_gameClient->Input().GetPlayers();
+    playerProvider->SetPlayers(players);
+
+    if (players.empty())
+      return;
+
+    std::array<CGUIListItemLayout*, 2> layouts{
       {
-        CGUIGameController* controllerControl = dynamic_cast<CGUIGameController*>(control);
-        if (controllerControl)
-        {
-          std::string controllerId;
-
-          auto controller = controllerControl->GetController();
-          if (controller)
-            controllerId = controller->ID();
-
-          if (controllerId != defaultController->ID())
-            controllerControl->ActivateController(defaultController);
-        }
+        m_layout,
+        m_focusedLayout,
       }
-    );
+    };
+
+    for (auto layout : layouts)
+    {
+      if (layout == nullptr)
+        continue;
+
+      layout->WalkControls(
+        [&players](CGUIControl* control) -> void
+        {
+          CGUIGameController* controllerControl = dynamic_cast<CGUIGameController*>(control);
+          if (controllerControl)
+          {
+            std::string controllerId;
+
+            auto controller = controllerControl->GetController();
+            if (controller)
+              controllerId = controller->ID();
+
+            if (controllerId != players[0]->ID())
+              controllerControl->ActivateController(players[0]);
+          }
+        }
+      );
+    }
   }
 }
 

@@ -88,6 +88,7 @@ namespace GAME
     void OnEnable();
     void OnDisable();
 
+    void OnJoystickEvent();
     void OnKeyboardAction();
     void OnMouseAction();
 

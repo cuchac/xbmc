@@ -62,6 +62,9 @@ namespace GAME
     virtual bool OnWheelMotion(const std::string& feature, float position, unsigned int motionTimeMs) override;
     virtual bool OnThrottleMotion(const std::string& feature, float position, unsigned int motionTimeMs) override;
 
+    // Input interface
+    void SetSource(const ControllerPtr& sourceController) { m_sourceController = sourceController; }
+    const ControllerPtr& GetSource() const { return m_sourceController; }
     bool SetRumble(const std::string& feature, float magnitude);
 
   private:
@@ -72,6 +75,7 @@ namespace GAME
 
     // Input parameters
     std::unique_ptr<CPort> m_port;
+    ControllerPtr m_sourceController;
   };
 }
 }

@@ -77,7 +77,11 @@ namespace KODI
        * This is provided so that avatar sizes can match controller sizes after
        * resizing the controller topology to fit the control.
        */
-      virtual void SetAvatarSize(unsigned int sizePx) = 0;
+      //virtual void SetAvatarSize(unsigned int sizePx) = 0;
+
+      //virtual void SetPlayers(const ControllerVector& controllers) = 0;
+
+      virtual void SetGameClient(GameClientPtr gameClient) = 0;
     };
 
     /*!

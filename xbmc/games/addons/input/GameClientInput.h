@@ -66,6 +66,7 @@ namespace GAME
 
     // Agent functions
     bool HasAgent() const;
+    ControllerVector GetPlayers() const;
 
     // Keyboard functions
     bool OpenKeyboard(const ControllerPtr &controller);
