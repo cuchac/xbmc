@@ -27,8 +27,8 @@ namespace KODI
 namespace GAME
 {
   class CGUIControllerPanel;
-  class CGUIPlayerPanel;
-  class IPlayerPanel;
+  class CGUIPlayerList;
+  class IPlayerList;
   class IControllerPanel;
 
   class CGUIPlayerWindow : public CGUIDialog
@@ -51,11 +51,11 @@ namespace GAME
     GameClientPtr GetGameClient() const;
 
     // Player window interfaces
-    IPlayerPanel *m_playerPanel = nullptr;
+    IPlayerList *m_playerList = nullptr;
     IControllerPanel *m_controllerPanel = nullptr;
 
     // GUI interface
-    CGUIPlayerPanel* m_playerControl = nullptr;
+    CGUIPlayerList* m_playerControl = nullptr;
     CGUIControllerPanel* m_controllerControl = nullptr;
   };
 }

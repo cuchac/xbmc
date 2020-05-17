@@ -19,11 +19,23 @@
  */
 #pragma once
 
-// GUI control IDs
-#define CONTROL_MAX_PLAYERS_LABEL       2
-#define CONTROL_EMULATOR_NANE           3
-#define CONTROL_PLAYER_LIST             4
-#define CONTROL_CONTROLLER_PANEL        5
+#include "games/controllers/ControllerTypes.h"
+#include "guilib/GUIListItem.h"
 
-#define XML_ELM_LABEL_LAYOUT           "labellayout"
-#define XML_ELM_BACKGROUND_LAYOUT      "backgroundlayout"
+#include <string>
+
+namespace KODI
+{
+namespace GAME
+{
+  class CGUIPlayerItem : public CGUIListItem
+  {
+  public:
+    CGUIPlayerItem(ControllerPtr controller);
+    ~CGUIPlayerItem() = default;
+
+  private:
+    const ControllerPtr m_controller;
+  };
+}
+}

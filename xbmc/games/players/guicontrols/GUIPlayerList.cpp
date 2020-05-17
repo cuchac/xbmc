@@ -18,7 +18,7 @@
  *
  */
 
-#include "GUIPlayerPanel.h"
+#include "GUIPlayerList.h"
 #include "games/addons/GameClient.h"
 #include "games/addons/input/GameClientInput.h"
 #include "games/controllers/guicontrols/GUIGameController.h"
@@ -35,15 +35,15 @@
 using namespace KODI;
 using namespace GAME;
 
-const CScroller CGUIPlayerPanel::m_scroller; //! @todo
+const CScroller CGUIPlayerList::m_scroller; //! @todo
 
-CGUIPlayerPanel::CGUIPlayerPanel(int parentID, int controlID,
+CGUIPlayerList::CGUIPlayerList(int parentID, int controlID,
                                  float posX, float posY,
                                  float width, float height,
                                  const CLabelInfo &labelInfo,
                                  const CTextureInfo &textureFocus,
                                  const CTextureInfo &textureBackground) :
-CGUIPanelContainer(parentID, controlID, posX, posY, width, height, HORIZONTAL, m_scroller, true),
+  CGUIListContainer(parentID, controlID, posX, posY, width, height, HORIZONTAL, m_scroller, true),
   m_imgFocus(0, 0, 0, 0, textureFocus),
   m_imgBackground(0, 0, 0, 0, textureBackground),
   m_label(0, 0, 0, 0, labelInfo)
@@ -52,7 +52,7 @@ CGUIPanelContainer(parentID, controlID, posX, posY, width, height, HORIZONTAL, m
   m_listProvider = new CGUIPlayerProvider(GetParentID());
 }
 
-void CGUIPlayerPanel::UpdateControllers()
+void CGUIPlayerList::UpdateControllers()
 {
   // Get controllers that currently belong to players
   if (m_gameClient)
@@ -98,7 +98,7 @@ void CGUIPlayerPanel::UpdateControllers()
   }
 }
 
-void CGUIPlayerPanel::OnSelect(unsigned int index)
+void CGUIPlayerList::OnSelect(unsigned int index)
 {
   //! @todo
 }

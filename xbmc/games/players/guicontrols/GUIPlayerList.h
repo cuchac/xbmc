@@ -21,7 +21,7 @@
 
 #include "games/players/windows/IPlayerWindow.h"
 #include "guilib/GUILabel.h"
-#include "guilib/GUIPanelContainer.h"
+#include "guilib/GUIListContainer.h"
 #include "guilib/GUITexture.h"
 #include "guilib/VisibleEffect.h" //! @todo
 
@@ -29,18 +29,18 @@ namespace KODI
 {
 namespace GAME
 {
-  class CGUIPlayerPanel : public CGUIPanelContainer,
-                          public IPlayerPanel
+  class CGUIPlayerList : public CGUIListContainer,
+                         public IPlayerList
   {
   public:
-    CGUIPlayerPanel(int parentID, int controlID, float posX, float posY, float width, float height,
+    CGUIPlayerList(int parentID, int controlID, float posX, float posY, float width, float height,
                     const CLabelInfo &labelInfo, const CTextureInfo &textureFocus, const CTextureInfo &textureBackground);
-    ~CGUIPlayerPanel() override = default;
+    ~CGUIPlayerList() override = default;
 
     // implementation of CGUIControl via CGUIPanelContainer
-    CGUIPlayerPanel *Clone() const override { return new CGUIPlayerPanel(*this); };
+    CGUIPlayerList *Clone() const override { return new CGUIPlayerList(*this); };
 
-    // implementation of IPlayerPanel
+    // implementation of IPlayerList
     void SetPlayerCount(unsigned int playerCount) override { m_playerCount = playerCount; }
     void OnSelect(unsigned int index) override;
     void SetGameClient(GameClientPtr gameClient) override { m_gameClient = gameClient; }

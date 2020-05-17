@@ -28,7 +28,7 @@
 #include "games/controllers/guicontrols/GUIGameController.h"
 #include "games/controllers/types/ControllerGrid.h"
 #include "games/players/guicontrols/GUIControllerPanel.h"
-#include "games/players/guicontrols/GUIPlayerPanel.h"
+#include "games/players/guicontrols/GUIPlayerList.h"
 #include "guilib/GUIMessage.h"
 #include "guilib/LocalizeStrings.h"
 #include "guilib/WindowIDs.h"
@@ -103,11 +103,11 @@ bool CGUIPlayerWindow::OnMessage(CGUIMessage& message)
 void CGUIPlayerWindow::OnInitWindow()
 {
   // Connect to window logic interface
-  m_playerPanel = dynamic_cast<CGUIPlayerPanel*>(GetControl(CONTROL_PLAYER_PANEL));
+  m_playerList = dynamic_cast<CGUIPlayerList*>(GetControl(CONTROL_PLAYER_LIST));
   m_controllerPanel = dynamic_cast<CGUIControllerPanel*>(GetControl(CONTROL_CONTROLLER_PANEL));
 
   // Connect to GUI interface
-  m_playerControl = dynamic_cast<CGUIPlayerPanel*>(GetControl(CONTROL_PLAYER_PANEL));
+  m_playerControl = dynamic_cast<CGUIPlayerList*>(GetControl(CONTROL_PLAYER_LIST));
   m_controllerControl = dynamic_cast<CGUIControllerPanel*>(GetControl(CONTROL_CONTROLLER_PANEL));
 
   GameClientPtr gameClient = GetGameClient();
@@ -145,10 +145,10 @@ void CGUIPlayerWindow::OnInitWindow()
     CLog::Log(LOGDEBUG, "Item size: {}px", itemSize);
 
     // Configure player panel
-    if (m_playerPanel != nullptr)
+    if (m_playerList != nullptr)
     {
-      m_playerPanel->SetPlayerCount(maxPlayers);
-      m_playerPanel->SetGameClient(gameClient);
+      m_playerList->SetPlayerCount(maxPlayers);
+      m_playerList->SetGameClient(gameClient);
     }
   }
   else

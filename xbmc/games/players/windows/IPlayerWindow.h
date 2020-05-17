@@ -54,10 +54,10 @@ namespace KODI
     /*!
      * \brief Control for holding player avatars
      */
-    class IPlayerPanel
+    class IPlayerList
     {
     public:
-      virtual ~IPlayerPanel() = default;
+      virtual ~IPlayerList() = default;
 
       /*!
        * \brief A player (or empty slot) has been selected

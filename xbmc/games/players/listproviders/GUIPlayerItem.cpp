@@ -17,13 +17,18 @@
  *  <http://www.gnu.org/licenses/>.
  *
  */
-#pragma once
 
-// GUI control IDs
-#define CONTROL_MAX_PLAYERS_LABEL       2
-#define CONTROL_EMULATOR_NANE           3
-#define CONTROL_PLAYER_LIST             4
-#define CONTROL_CONTROLLER_PANEL        5
+#include "GUIPlayerItem.h"
+#include "games/controllers/Controller.h"
+#include "games/controllers/ControllerLayout.h"
 
-#define XML_ELM_LABEL_LAYOUT           "labellayout"
-#define XML_ELM_BACKGROUND_LAYOUT      "backgroundlayout"
+using namespace KODI;
+using namespace GAME;
+
+CGUIPlayerItem::CGUIPlayerItem(ControllerPtr controller) :
+  m_controller(std::move(controller))
+{
+  // Initialize CGUIListItem
+  if (m_controller)
+    SetIconImage(m_controller->Layout().ImagePath());
+}

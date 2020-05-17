@@ -54,8 +54,8 @@
 							<texture border="40">buttons/dialogbutton-nofo.png</texture>
 						</control>
 						<!---->
-						<control type="playerpanel" id="4">
-							<description>Player panel</description>
+						<control type="playerlist" id="4">
+							<description>Player list</description>
 							<top>116</top>
 							<onup></onup>
 							<ondown>6</ondown>
