@@ -35,24 +35,31 @@
 using namespace KODI;
 using namespace GAME;
 
-const CScroller CGUIPlayerList::m_scroller; //! @todo
+//const CScroller CGUIPlayerList::m_scroller; //! @todo
 
 CGUIPlayerList::CGUIPlayerList(int parentID, int controlID,
-                                 float posX, float posY,
-                                 float width, float height,
-                                 const CLabelInfo &labelInfo,
-                                 const CTextureInfo &textureFocus,
-                                 const CTextureInfo &textureBackground) :
-  CGUIListContainer(parentID, controlID, posX, posY, width, height, HORIZONTAL, m_scroller, true),
-  m_imgFocus(0, 0, 0, 0, textureFocus),
-  m_imgBackground(0, 0, 0, 0, textureBackground),
-  m_label(0, 0, 0, 0, labelInfo)
+                               float posX, float posY,
+                               float width, float height,
+                               ORIENTATION orientation,
+                               const CScroller& scroller) :
+  CGUIListContainer(parentID, controlID, posX, posY, width, height, orientation, scroller, true)
+{
+  InitializeBaseContainer();
+}
+
+CGUIPlayerList::CGUIPlayerList(const CGUIPlayerList& other) :
+  CGUIListContainer(other)
+{
+  InitializeBaseContainer();
+}
+
+void CGUIPlayerList::InitializeBaseContainer()
 {
   // Initialize CGUIBaseContainer
   m_listProvider = new CGUIPlayerProvider(GetParentID());
 }
 
-void CGUIPlayerList::UpdateControllers()
+void CGUIPlayerList::UpdatePlayers()
 {
   // Get controllers that currently belong to players
   if (m_gameClient)
@@ -61,40 +68,44 @@ void CGUIPlayerList::UpdateControllers()
 
     ControllerVector players = m_gameClient->Input().GetPlayers();
     playerProvider->SetPlayers(players);
+  }
+}
 
-    if (players.empty())
-      return;
+void CGUIPlayerList::UpdateControllers()
+{
+  //! @todo Use correct controller, for now use default
+  CGameServices& gameServices = CServiceBroker::GetGameServices();
+  ControllerPtr defaultController = gameServices.GetDefaultController();
 
-    std::array<CGUIListItemLayout*, 2> layouts{
-      {
-        m_layout,
-        m_focusedLayout,
-      }
-    };
-
-    for (auto layout : layouts)
+  std::array<CGUIListItemLayout*, 2> layouts{
     {
-      if (layout == nullptr)
-        continue;
-
-      layout->WalkControls(
-        [&players](CGUIControl* control) -> void
-        {
-          CGUIGameController* controllerControl = dynamic_cast<CGUIGameController*>(control);
-          if (controllerControl)
-          {
-            std::string controllerId;
-
-            auto controller = controllerControl->GetController();
-            if (controller)
-              controllerId = controller->ID();
-
-            if (controllerId != players[0]->ID())
-              controllerControl->ActivateController(players[0]);
-          }
-        }
-      );
+      m_layout,
+      m_focusedLayout,
     }
+  };
+
+  for (auto layout : layouts)
+  {
+    if (layout == nullptr)
+      continue;
+
+    layout->WalkControls(
+      [&defaultController](CGUIControl* control) -> void
+      {
+        CGUIGameController* controllerControl = dynamic_cast<CGUIGameController*>(control);
+        if (controllerControl)
+        {
+          std::string controllerId;
+
+          auto controller = controllerControl->GetController();
+          if (controller)
+            controllerId = controller->ID();
+
+          if (controllerId != defaultController->ID())
+            controllerControl->ActivateController(defaultController);
+        }
+      }
+    );
   }
 }
 

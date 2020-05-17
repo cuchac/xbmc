@@ -1405,7 +1405,10 @@ CGUIControl* CGUIControlFactory::Create(int parentID, const CRect &rect, TiXmlEl
     break;
   case CGUIControl::GUICONTAINER_PLAYER_LIST:
     {
-      control = new GAME::CGUIPlayerList(parentID, id, posX, posY, width, height, labelInfo, textureFocus, textureBackground);
+      CScroller scroller;
+      GetScroller(pControlNode, "scrolltime", scroller);
+
+      control = new GAME::CGUIPlayerList(parentID, id, posX, posY, width, height, orientation, scroller);
       GAME::CGUIPlayerList* pcontrol = static_cast<GAME::CGUIPlayerList*>(control);
       pcontrol->LoadLayout(pControlNode);
       pcontrol->SetPageControl(pageControl);

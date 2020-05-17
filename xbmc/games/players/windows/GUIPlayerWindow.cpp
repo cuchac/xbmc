@@ -53,6 +53,9 @@ void CGUIPlayerWindow::DoProcess(unsigned int currentTime, CDirtyRegionList &dir
 {
   //! @todo Fade player focus texture when player is being moved
 
+  if (m_playerControl != nullptr)
+    m_playerControl->UpdatePlayers();
+
   CGUIDialog::DoProcess(currentTime, dirtyregions);
 
   // Load controllers so that they will be displayed in the GUI

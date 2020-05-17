@@ -34,7 +34,8 @@ namespace GAME
   {
   public:
     CGUIPlayerList(int parentID, int controlID, float posX, float posY, float width, float height,
-                    const CLabelInfo &labelInfo, const CTextureInfo &textureFocus, const CTextureInfo &textureBackground);
+        ORIENTATION orientation, const CScroller& scroller);
+    CGUIPlayerList(const CGUIPlayerList& other);
     ~CGUIPlayerList() override = default;
 
     // implementation of CGUIControl via CGUIPanelContainer
@@ -46,19 +47,15 @@ namespace GAME
     void SetGameClient(GameClientPtr gameClient) override { m_gameClient = gameClient; }
 
     // Game window interface
+    void UpdatePlayers();
     void UpdateControllers();
 
   private:
-    // GUI properties
-    CGUITexture m_imgFocus;
-    CGUITexture m_imgBackground;
-    CGUILabel m_label;
+    void InitializeBaseContainer();
 
     // Player properties
     unsigned int m_playerCount = 0;
     GameClientPtr m_gameClient;
-
-    static const CScroller m_scroller; //! @todo
   };
 }
 }
