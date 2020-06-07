@@ -27,6 +27,7 @@ NATIVE= \
   pcre \
   perlmodule-parseyapp \
   pkg-config \
+  protobuf \
   python3 \
   swig \
   TexturePacker \
@@ -69,6 +70,7 @@ Mako: MarkupSafe
 meson: python3
 ninja: meson
 openssl: zlib
+protobuf: zlib
 pugixml: cmake
 python3: $(EXPAT) $(LIBFFI) pkg-config zlib openssl autoconf-archive
 swig: pcre
