@@ -8,11 +8,13 @@
 
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
 
 #include "GUIDialogBoxBase.h"
 #include "view/GUIViewControl.h"
+#include "FileItem.h"
 
 class CFileItem;
 class CFileItemList;
@@ -52,6 +54,7 @@ protected:
   void OnWindowUnload() override;
 
   virtual void OnSelect(int idx);
+  virtual void OnInfo(const CFileItemPtr& item);
 
 private:
   bool m_bButtonEnabled;

@@ -8,6 +8,7 @@
 
 #include "GUIDialogSelect.h"
 #include "FileItem.h"
+#include "addons/GUIDialogAddonInfo.h"
 #include "input/Key.h"
 #include "guilib/GUIMessage.h"
 #include "guilib/LocalizeStrings.h"
@@ -102,6 +103,15 @@ bool CGUIDialogSelect::OnMessage(CGUIMessage& message)
             }
           }
         }
+        else if (iAction == ACTION_SHOW_INFO)
+        {
+          const int iSelected = m_viewControl.GetSelectedItem();
+          if (iSelected >= 0 && iSelected < m_vecList->Size())
+          {
+            CFileItemPtr item(m_vecList->Get(iSelected));
+            OnInfo(item);
+          }
+        }
       }
       if (iControl == CONTROL_EXTRA_BUTTON)
       {
@@ -150,6 +160,12 @@ void CGUIDialogSelect::OnSelect(int idx)
 {
   m_bConfirmed = true;
   Close();
+}
+
+void CGUIDialogSelect::OnInfo(const CFileItemPtr& item)
+{
+  if (item->HasAddonInfo())
+    CGUIDialogAddonInfo::ShowForItem(item);
 }
 
 bool CGUIDialogSelect::OnBack(int actionID)
