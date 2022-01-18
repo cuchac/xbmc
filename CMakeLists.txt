@@ -64,6 +64,7 @@ option(ENABLE_PYTHON      "Enable python support?" ON)
 option(ENABLE_TESTING     "Enable testing support?" ON)
 
 # Internal Depends - supported on all platforms
+option(ENABLE_INTERNAL_LIBQRENCODE "Enable internal libqrencode?" ON) # TODO: Change to OFF
 option(ENABLE_INTERNAL_LMDB "Enable internal LMDB?" ON) # TODO: Change to OFF
 option(ENABLE_INTERNAL_LZ4 "Enable internal LZ4?" ON) # TODO: Change to OFF
 
@@ -181,6 +182,7 @@ set(required_deps ASS
                   Iconv
                   KissFFT
                   LibDvd
+                  Libqrencode
                   LMDB
                   Lz4
                   Lzo2
