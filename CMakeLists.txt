@@ -57,6 +57,7 @@ option(ENABLE_PYTHON      "Enable python support?" ON)
 option(ENABLE_TESTING     "Enable testing support?" ON)
 # use ffmpeg from depends or system
 option(ENABLE_INTERNAL_FFMPEG "Enable internal ffmpeg?" OFF)
+option(ENABLE_INTERNAL_LIBQRENCODE "Enable internal libqrencode?" ON) # TODO: Change to OFF
 if(UNIX)
   option(FFMPEG_PATH        "Path to external ffmpeg?" "")
   option(ENABLE_INTERNAL_CROSSGUID "Enable internal crossguid?" ON)
@@ -138,6 +139,7 @@ set(required_deps ASS
                   Iconv
                   KissFFT
                   LibDvd
+                  Libqrencode
                   Lzo2
                   OpenSSL>=1.0.2
                   PCRE
@@ -307,7 +309,17 @@ elseif(CORE_SYSTEM_NAME STREQUAL android)
                  ${CORE_BUILD_DIR}/DllPaths_generated_android.h @ONLY)
 endif()
 
-set(GLOBAL_TARGET_DEPS ffmpeg dvdnav crossguid fmt Spdlog::Spdlog fstrcmp flatbuffers ${PLATFORM_GLOBAL_TARGET_DEPS})
+set(GLOBAL_TARGET_DEPS
+  crossguid
+  dvdnav
+  ffmpeg
+  flatbuffers
+  fmt
+  fstrcmp
+  libqrencode
+  Spdlog::Spdlog
+  ${PLATFORM_GLOBAL_TARGET_DEPS}
+)
 
 # main library (used for main binary and tests)
 add_library(lib${APP_NAME_LC} STATIC $<TARGET_OBJECTS:compileinfo>)

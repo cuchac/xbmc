@@ -37,6 +37,7 @@ DEPENDS = \
   libnfs \
   libplist \
   libpng \
+  libqrencode \
   libshairplay \
   libspdlog \
   libudfread \
@@ -150,6 +151,7 @@ libinput: mtdev libevdev meson-cross-file
 libmicrohttpd: gnutls libgcrypt libgpg-error
 libplist: $(ZLIB)
 libpng: $(ZLIB)
+libqrencode: $(ICONV) libpng
 libspdlog: libfmt
 libva: libdrm $(LIBVA_DEPS)
 libxslt: libgcrypt libxml2
