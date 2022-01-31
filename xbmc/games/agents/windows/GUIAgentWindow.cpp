@@ -17,6 +17,7 @@
 #include "cores/RetroPlayer/guibridge/GUIGameRenderManager.h"
 #include "cores/RetroPlayer/guibridge/GUIGameSettingsHandle.h"
 #include "games/addons/GameClient.h"
+#include "games/agents/input/AgentInput.h"
 #include "games/ports/guicontrols/GUIActivePortList.h"
 #include "guilib/GUIButtonControl.h"
 #include "guilib/GUIControl.h"
@@ -153,12 +154,17 @@ void CGUIAgentWindow::OnInitWindow()
   m_portList->Initialize(m_gameClient);
   m_agentList->Initialize(m_gameClient);
 
+  // Initialize input
+  m_agentInput->Initialize();
+
   UpdateActivePortList();
   UpdateAgentList();
 }
 
 void CGUIAgentWindow::OnDeinitWindow(int nextWindowID)
 {
+  m_agentInput->Deinitialize();
+
   m_portList->Deinitialize();
   m_agentList->Deinitialize();
 

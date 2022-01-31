@@ -5,6 +5,7 @@ xbmc/games/addons/input            games/addons/input
 xbmc/games/addons/streams          games/addons/streams
 xbmc/games/agents                  games/agents
 xbmc/games/agents/avatars          games/agents/avatars
+xbmc/games/agents/input            games/agents/input
 xbmc/games/agents/windows          games/agents/windows
 xbmc/games/controllers             games/controllers
 xbmc/games/controllers/dialogs     games/controllers/dialogs

@@ -17,6 +17,7 @@ namespace KODI
 {
 namespace GAME
 {
+class CAgentInput;
 class IActivePortList;
 class IAgentList;
 
@@ -56,6 +57,9 @@ private:
 
   // Game parameters
   GameClientPtr m_gameClient;
+
+  // Input parameters
+  CAgentInput* m_agentInput{nullptr};
 };
 } // namespace GAME
 } // namespace KODI
