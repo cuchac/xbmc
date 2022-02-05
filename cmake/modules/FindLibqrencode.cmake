@@ -27,7 +27,7 @@ if(ENABLE_INTERNAL_LIBQRENCODE)
   endif()
 
   set(LIBQRENCODE_INCLUDE_DIR ${CMAKE_BINARY_DIR}/${CORE_BUILD_DIR}/include CACHE INTERNAL "libqrencode include dir")
-  set(LIBQRENCODE_LIBRARY ${CMAKE_BINARY_DIR}/${CORE_BUILD_DIR}/lib/libqrencode.a CACHE INTERNAL "libqrencode library")
+  set(LIBQRENCODE_LIBRARY ${CMAKE_BINARY_DIR}/${CORE_BUILD_DIR}/lib/qrencoded.lib CACHE INTERNAL "libqrencode library")
 
   externalproject_add(libqrencode
                       URL ${LIBQRENCODE_URL}
@@ -41,7 +41,7 @@ if(ENABLE_INTERNAL_LIBQRENCODE)
   set_target_properties(libqrencode PROPERTIES FOLDER "External Projects"
                                     INTERFACE_INCLUDE_DIRECTORIES ${LIBQRENCODE_INCLUDE_DIR})
 else()
-  find_path(LIBQRENCODE_LIBRARY NAMES libqrencode.a)
+  find_path(LIBQRENCODE_LIBRARY NAMES libqrencode.lib)
   find_path(LIBQRENCODE_INCLUDE_DIR NAMES libqrencode.h)
 endif()
 
