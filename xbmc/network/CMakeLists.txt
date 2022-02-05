@@ -31,11 +31,6 @@ if(ENABLE_OPTICAL)
   list(APPEND HEADERS cddb.h)
 endif()
 
-if(PLIST_FOUND)
-  list(APPEND SOURCES AirPlayServer.cpp)
-  list(APPEND HEADERS AirPlayServer.h)
-endif()
-
 if(SHAIRPLAY_FOUND)
   list(APPEND SOURCES AirTunesServer.cpp)
   list(APPEND HEADERS AirTunesServer.h)
