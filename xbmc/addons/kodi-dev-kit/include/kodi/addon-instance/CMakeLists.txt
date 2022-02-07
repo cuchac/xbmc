@@ -1,6 +1,7 @@
 set(HEADERS AudioDecoder.h
             AudioEncoder.h
             Game.h
+            Identity.h
             ImageDecoder.h
             Inputstream.h
             Peripheral.h
