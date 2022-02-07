@@ -149,22 +149,9 @@
 						<width>700</width>
 						<include>DialogSettingButton</include>
 						<label>$LOCALIZE[13376]</label>
-						<label2>[COLOR grey]Select + Right Stick[/COLOR]</label2>
+						<label2>[COLOR grey]$INFO[ButtonCombo(ActivateWindow,GameVolume)][/COLOR]</label2>
+						<!-- Select + Right Stick -->
 						<onclick>ActivateWindow(GameVolume)</onclick>
-					</control>
-					<control type="button" id="14103">
-						<description>Controller settings button</description>
-						<width>700</width>
-						<include>DialogSettingButton</include>
-						<label>$LOCALIZE[35234]</label>
-						<onclick>ActivateWindow(GameControllers)</onclick>
-					</control>
-					<control type="button" id="14107">
-						<description>Controller port configuration</description>
-						<width>700</width>
-						<include>DialogSettingButton</include>
-						<label>$LOCALIZE[35110]</label>
-						<onclick>ActivateWindow(GamePorts)</onclick>
 					</control>
 					<control type="button" id="14105">
 						<description>Advanced settings</description>

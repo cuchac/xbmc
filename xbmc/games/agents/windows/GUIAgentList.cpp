@@ -160,8 +160,8 @@ void CGUIAgentList::Notify(const Observable& obs, const ObservableMessage msg)
 {
   switch (msg)
   {
+    case ObservableMessageGameAgentsChanged:
     case ObservableMessageGamePortsChanged:
-    case ObservableMessagePeripheralsChanged:
     {
       using namespace MESSAGING;
       CGUIMessage msg(GUI_MSG_REFRESH_LIST, m_guiWindow.GetID(), CONTROL_AGENT_LIST);

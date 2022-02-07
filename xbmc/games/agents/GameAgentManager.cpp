@@ -72,7 +72,8 @@ void CGameAgentManager::Stop()
     m_portMap.clear();
   }
 
-  NotifyObservers(ObservableMessagePeripheralsChanged);
+  // Notify observers if anything changed
+  NotifyObservers(ObservableMessageGameAgentsChanged);
 
   // Reset state
   m_gameClient.reset();
@@ -94,7 +95,7 @@ void CGameAgentManager::Refresh()
   }
 
   // Notify observers if anything changed
-  NotifyObservers(ObservableMessagePeripheralsChanged);
+  NotifyObservers(ObservableMessageGameAgentsChanged);
 }
 
 void CGameAgentManager::Notify(const Observable& obs, const ObservableMessage msg)
@@ -134,17 +135,13 @@ PERIPHERALS::PeripheralVector CGameAgentManager::GetAgents() const
 {
   PERIPHERALS::PeripheralVector agents;
 
-  {
-    PERIPHERALS::EventLockHandlePtr lock = CServiceBroker::GetPeripherals().RegisterEventLock();
+  if (m_bHasKeyboard)
+    m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_KEYBOARD);
 
-    if (m_bHasKeyboard)
-      m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_KEYBOARD);
+  if (m_bHasMouse)
+    m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_MOUSE);
 
-    if (m_bHasMouse)
-      m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_MOUSE);
-
-    m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_JOYSTICK);
-  }
+  m_peripheralManager.GetPeripheralsWithFeature(agents, PERIPHERALS::FEATURE_JOYSTICK);
 
   return agents;
 }

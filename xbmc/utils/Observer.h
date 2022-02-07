@@ -23,6 +23,7 @@ typedef enum
   ObservableMessageSettingsChanged,
   ObservableMessageButtonMapsChanged,
   ObservableMessageGamePortsChanged,
+  ObservableMessageGameAgentsChanged,
 } ObservableMessage;
 
 class Observer
