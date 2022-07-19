@@ -101,6 +101,22 @@ public:
    */
   bool ProvidesInput() const;
 
+  /*!
+   * \brief Get the total count of game-playing agents communicating through
+   * this node
+   *
+   * The count is increased by one, recursively, for every attached controller
+   * that provides input.
+   *
+   * \return The number of game-playing agents attached through the port
+   */
+  unsigned int GetAgentCount() const;
+
+  /*!
+   * \brief
+   */
+  void GetInputPorts(std::vector<std::string>& activePorts) const;
+
 private:
   ControllerPtr m_controller;
 
