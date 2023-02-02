@@ -5,6 +5,9 @@ addons/game.controller.default/*
 addons/game.controller.keyboard/*
 addons/game.controller.mouse/*
 addons/game.controller.snes/*
+addons/identity.did.github/*
+addons/identity.did.ipfs/*
+addons/identity.did.key/*
 addons/kodi.audiodecoder/*
 addons/kodi.game/*
 addons/kodi.imagedecoder/*

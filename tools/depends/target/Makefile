@@ -28,10 +28,13 @@ DEPENDS = \
   libgcrypt \
   libgpg-error \
   libjpeg-turbo \
+  liblmdb \
+  liblz4 \
   liblzo2 \
   libmicrohttpd \
   libplist \
   libpng \
+  libqrencode \
   libshairplay \
   libusb \
   libxml2 \
@@ -146,6 +149,7 @@ libinput: mtdev libevdev meson-cross-file
 libmicrohttpd: gnutls libgcrypt libgpg-error
 libplist: $(ZLIB)
 libpng: $(ZLIB)
+libqrencode: $(ICONV) libpng
 libva: libdrm $(LIBVA_DEPS)
 libxml2: $(ZLIB)
 libxslt: libgcrypt libxml2
