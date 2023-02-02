@@ -8,6 +8,7 @@
 
 #include "GameAgentManager.h"
 
+#include "GameAgent.h"
 #include "ServiceBroker.h"
 #include "games/addons/GameClient.h"
 #include "games/addons/input/GameClientInput.h"
@@ -129,6 +130,49 @@ bool CGameAgentManager::OnButtonPress(MOUSE::BUTTON_ID button)
 {
   m_bHasMouse = true;
   return false;
+}
+
+GameAgentVec CGameAgentManager::GetAgents() const
+{
+  GameAgentVec agents;
+
+  PERIPHERALS::PeripheralVector peripherals;
+
+  if (m_bHasKeyboard)
+    m_peripheralManager.GetPeripheralsWithFeature(peripherals, PERIPHERALS::FEATURE_KEYBOARD);
+
+  if (m_bHasMouse)
+    m_peripheralManager.GetPeripheralsWithFeature(peripherals, PERIPHERALS::FEATURE_MOUSE);
+
+  m_peripheralManager.GetPeripheralsWithFeature(peripherals, PERIPHERALS::FEATURE_JOYSTICK);
+
+  for (const auto& peripheral : peripherals)
+    agents.emplace_back(std::make_unique<CGameAgent>(peripheral));
+
+  return agents;
+}
+
+const std::string& CGameAgentManager::GetPortAddress(JOYSTICK::IInputProvider* inputProvider) const
+{
+  auto it = m_portMap.find(inputProvider);
+  if (it != m_portMap.end())
+    return it->second->GetPortAddress();
+
+  static const std::string empty;
+  return empty;
+}
+
+std::vector<std::string> CGameAgentManager::GetInputPorts() const
+{
+  std::vector<std::string> inputPorts;
+
+  if (m_gameClient)
+  {
+    const CControllerTree& controllerTree = m_gameClient->Input().GetActiveControllerTree();
+    controllerTree.GetInputPorts(inputPorts);
+  }
+
+  return inputPorts;
 }
 
 void CGameAgentManager::ProcessJoysticks(PERIPHERALS::EventLockHandlePtr& inputHandlingLock)
@@ -342,6 +386,9 @@ CGameAgentManager::PortMap CGameAgentManager::MapJoysticks(
   unsigned int i = 0;
   for (const auto& [portAddress, gameClientJoystick] : gameClientjoysticks)
   {
+    // Clear game joystick's source peripheral
+    gameClientJoystick->ClearSource();
+
     // Break when we're out of joystick peripherals
     if (i >= peripheralJoysticks.size())
       break;
@@ -352,6 +399,9 @@ CGameAgentManager::PortMap CGameAgentManager::MapJoysticks(
 
     // Dereference iterator
     PERIPHERALS::PeripheralPtr peripheralJoystick = sortedJoysticks[i];
+
+    // Update game joystick's source peripheral
+    gameClientJoystick->SetSource(peripheralJoystick);
 
     // Map input provider to input handler
     result[peripheralJoystick.get()] = gameClientJoystick;

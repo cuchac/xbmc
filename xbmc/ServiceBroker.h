@@ -48,6 +48,11 @@ namespace MESSAGING
 {
 class CApplicationMessenger;
 }
+
+namespace RETRO_ENGINE
+{
+class CRetroEngineServices;
+}
 } // namespace KODI
 
 class CAppParams;
@@ -102,6 +107,11 @@ class CGameServices;
 namespace RETRO
 {
 class CGUIGameRenderManager;
+}
+
+namespace SMART_HOME
+{
+class CSmartHomeServices;
 }
 } // namespace KODI
 
@@ -217,6 +227,10 @@ public:
       const std::shared_ptr<speech::ISpeechRecognition>& speechRecognition);
   static void UnregisterSpeechRecognition();
   static std::shared_ptr<speech::ISpeechRecognition> GetSpeechRecognition();
+
+  static KODI::RETRO_ENGINE::CRetroEngineServices& GetRetroEngineServices();
+
+  static KODI::SMART_HOME::CSmartHomeServices& GetSmartHomeServices();
 
 private:
   std::shared_ptr<CAppParams> m_appParams;

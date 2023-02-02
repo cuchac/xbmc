@@ -405,6 +405,16 @@ bool CGameClientInput::DisconnectController(const std::string& portAddress)
   return true;
 }
 
+std::vector<std::string> CGameClientInput::GetPortAddresses()
+{
+  std::vector<std::string> portAddresses;
+
+  const CControllerTree& controllerTree = GetActiveControllerTree();
+  controllerTree.GetInputPorts(portAddresses);
+
+  return portAddresses;
+}
+
 void CGameClientInput::SavePorts()
 {
   // Let the observers know that ports have changed
@@ -471,6 +481,7 @@ bool CGameClientInput::OpenKeyboard(const ControllerPtr& controller,
   {
     m_keyboard =
         std::make_unique<CGameClientKeyboard>(m_gameClient, controller->ID(), keyboard.get());
+    m_keyboard->SetSource(std::move(keyboard));
     return true;
   }
 
@@ -539,6 +550,7 @@ bool CGameClientInput::OpenMouse(const ControllerPtr& controller,
   if (bSuccess)
   {
     m_mouse = std::make_unique<CGameClientMouse>(m_gameClient, controller->ID(), mouse.get());
+    m_mouse->SetSource(std::move(mouse));
     return true;
   }
 

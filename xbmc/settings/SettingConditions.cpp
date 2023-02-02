@@ -439,6 +439,10 @@ void CSettingConditions::Initialize()
   m_simpleConditions.emplace("has_dvd_drive");
 #endif
 
+#ifdef HAS_LIBP2P
+  m_simpleConditions.insert("has_libp2p");
+#endif
+
   // add complex conditions
   m_complexConditions.emplace("addonhassettings", AddonHasSettings);
   m_complexConditions.emplace("checkmasterlock", CheckMasterLock);

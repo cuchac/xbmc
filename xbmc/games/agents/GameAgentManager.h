@@ -21,7 +21,6 @@ class CInputManager;
 
 namespace PERIPHERALS
 {
-class CPeripheral;
 class CPeripherals;
 } // namespace PERIPHERALS
 
@@ -34,7 +33,6 @@ class IInputProvider;
 
 namespace GAME
 {
-class CGameAgent;
 class CGameClient;
 class CGameClientJoystick;
 
@@ -76,6 +74,11 @@ public:
   bool OnPosition(int x, int y) override;
   bool OnButtonPress(MOUSE::BUTTON_ID button) override;
   void OnButtonRelease(MOUSE::BUTTON_ID button) override {}
+
+  // Public interface
+  GameAgentVec GetAgents() const;
+  const std::string& GetPortAddress(JOYSTICK::IInputProvider* inputProvider) const;
+  std::vector<std::string> GetInputPorts() const;
 
 private:
   //! @todo De-duplicate these types

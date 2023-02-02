@@ -28,10 +28,13 @@ DEPENDS = \
   libgcrypt \
   libgpg-error \
   libjpeg-turbo \
+  liblmdb \
+  liblz4 \
   liblzo2 \
   libmicrohttpd \
   libplist \
   libpng \
+  libqrencode \
   libshairplay \
   libusb \
   libxml2 \
@@ -49,6 +52,34 @@ DEPENDS = \
   tinyxml \
   udfread \
   xz
+
+# libp2p dependencies
+DEPENDS += \
+  boost \
+  boost-di \
+  c-ares \
+  gsl \
+  hat-trie \
+  libp2p \
+  protobuf \
+  soralog \
+  sqlite-modern-cpp \
+  yaml-cpp
+
+# Filecoin dependencies
+DEPENDS += \
+  civetweb \
+  cppcodec \
+  filecoin \
+  filecoin-ffi \
+  indicators \
+  jwt-cpp \
+  leveldb \
+  libarchive \
+  libsecp256k1 \
+  md5 \
+  prometheus-cpp \
+  tinycbor \
 
 ifeq ($(ENABLE_GPLV3),yes)
   DEPENDS+=samba-gplv3 libcdio-gplv3
@@ -123,11 +154,33 @@ endif
 
 all: .installed-$(PLATFORM)
 
+civetweb: md5
 crossguid: $(LIBUUID)
 curl: openssl nghttp2
 dav1d: meson-cross-file
 dbus: expat
 ffmpeg: $(ICONV) $(ZLIB) bzip2 gnutls dav1d $(LIBVA)
+filecoin: \
+  boost \
+  boost-di \
+  civetweb \
+  cppcodec \
+  curl \
+  filecoin-ffi \
+  gsl \
+  hat-trie \
+  indicators \
+  jwt-cpp \
+  leveldb \
+  libarchive \
+  libp2p \
+  libsecp256k1 \
+  libspdlog \
+  md5 \
+  openssl \
+  prometheus-cpp \
+  protobuf \
+  tinycbor
 fontconfig: freetype2 expat $(ICONV) $(LIBUUID) meson-cross-file
 freetype2: bzip2 harfbuzz $(ZLIB)
 fribidi: meson-cross-file
@@ -144,8 +197,19 @@ libevdev: libudev
 libgcrypt: libgpg-error
 libinput: mtdev libevdev meson-cross-file
 libmicrohttpd: gnutls libgcrypt libgpg-error
+libp2p: \
+  boost \
+  boost-di \
+  c-ares \
+  gsl \
+  hat-trie \
+  openssl \
+  protobuf \
+  soralog \
+  sqlite-modern-cpp
 libplist: $(ZLIB)
 libpng: $(ZLIB)
+libqrencode: $(ICONV) libpng
 libva: libdrm $(LIBVA_DEPS)
 libxml2: $(ZLIB)
 libxslt: libgcrypt libxml2
@@ -154,11 +218,14 @@ mariadb: openssl $(ICONV) $(ZLIB)
 mesa: libdrm meson-cross-file $(MESA_DEPS)
 nettle: gmp
 openssl: $(ZLIB)
+protobuf: $(ZLIB)
 python3: expat gettext libxml2 sqlite3 openssl libffi bzip2 xz $(ICONV)
 pythonmodule-pil: bzip2 $(PYMODULE_DEPS) $(ZLIB) libjpeg-turbo libpng freetype2 python3 pythonmodule-setuptools
 pythonmodule-pycryptodome: $(PYMODULE_DEPS) python3 pythonmodule-setuptools
 pythonmodule-setuptools: $(PYMODULE_DEPS) python3
 samba-gplv3: gnutls $(ZLIB)
+soralog: fmt yaml-cpp
+sqlite-modern-cpp: sqlite3
 taglib: $(ZLIB)
 wayland: expat libffi
 waylandpp: wayland $(WAYLANDPP_DEPS)

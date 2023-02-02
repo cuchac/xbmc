@@ -5,6 +5,7 @@
   <addon>game.controller.keyboard</addon>
   <addon>game.controller.mouse</addon>
   <addon>game.controller.snes</addon>
+  <addon>identity.did.key</addon>
   <addon>kodi.binary.global.audioengine</addon>
   <addon>kodi.binary.global.filesystem</addon>
   <addon>kodi.binary.global.general</addon>
@@ -55,6 +56,8 @@
   <addon>xbmc.python</addon>
   <addon>xbmc.webinterface</addon>
   <addon optional="true">game.shader.presets</addon>
+  <addon optional="true">identity.did.github</addon>
+  <addon optional="true">identity.did.ipfs</addon>
   <addon optional="true">inputstream.adaptive</addon>
   <addon optional="true">peripheral.joystick</addon>
   <addon optional="true">repository.chrisism.dev</addon>

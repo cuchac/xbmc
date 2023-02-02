@@ -134,3 +134,23 @@ bool CControllerNode::ProvidesInput() const
 {
   return m_controller && m_controller->Topology().ProvidesInput();
 }
+
+unsigned int CControllerNode::GetAgentCount() const
+{
+  unsigned int agentCount = 0;
+
+  if (ProvidesInput())
+    ++agentCount;
+
+  agentCount += GetHub().GetAgentCount();
+
+  return agentCount;
+}
+
+void CControllerNode::GetInputPorts(std::vector<std::string>& inputPorts) const
+{
+  if (ProvidesInput())
+    inputPorts.emplace_back(m_portAddress);
+
+  m_hub->GetInputPorts(inputPorts);
+}

@@ -62,8 +62,13 @@ option(ENABLE_AIRTUNES    "Enable AirTunes support?" ON)
 option(ENABLE_OPTICAL     "Enable optical support?" ON)
 option(ENABLE_PYTHON      "Enable python support?" ON)
 option(ENABLE_TESTING     "Enable testing support?" ON)
+option(ENABLE_ROS2        "Enable ROS 2 support?" OFF)
+option(ENABLE_LIBP2P      "Enable libp2p support?" OFF) # TODO: Change on ON
 
 # Internal Depends - supported on all platforms
+option(ENABLE_INTERNAL_LIBQRENCODE "Enable internal libqrencode?" ON) # TODO: Change to OFF
+option(ENABLE_INTERNAL_LMDB "Enable internal LMDB?" ON) # TODO: Change to OFF
+option(ENABLE_INTERNAL_LZ4 "Enable internal LZ4?" ON) # TODO: Change to OFF
 
 # These are required enabled for all CI platforms, and recommended for all builds
 option(ENABLE_INTERNAL_CROSSGUID "Enable internal crossguid?" ON)
@@ -79,6 +84,7 @@ dependent_option(ENABLE_INTERNAL_NFS "Enable internal libnfs?")
 dependent_option(ENABLE_INTERNAL_PCRE "Enable internal pcre?")
 dependent_option(ENABLE_INTERNAL_SPDLOG "Enable internal spdlog?")
 dependent_option(ENABLE_INTERNAL_TAGLIB "Enable internal taglib?")
+dependent_option(ENABLE_INTERNAL_LZ4 "Enable internal lz4")
 
 # Internal Depends - supported on UNIX platforms
 if(UNIX)
@@ -109,6 +115,9 @@ if(NOT CMAKE_GENERATOR MATCHES "Visual Studio" AND NOT CMAKE_GENERATOR STREQUAL 
 else()
   set(ENABLE_STATIC_LIBS FALSE)
 endif()
+
+# Find Boost static libraries
+set(Boost_USE_STATIC_LIBS ON)
 
 core_find_git_rev(APP_SCMID FULL)
 
@@ -178,6 +187,9 @@ set(required_deps ASS
                   Iconv
                   KissFFT
                   LibDvd
+                  Libqrencode
+                  LMDB
+                  Lz4
                   Lzo2
                   OpenSSL>=1.1.0
                   PCRE
@@ -194,12 +206,15 @@ set(optional_deps Alsa
                   Avahi
                   Bluetooth
                   Bluray
+                  Boost
                   CAP
                   CEC
                   Dav1d
                   DBus
+                  #Filecoin
                   Iso9660pp
                   LCMS2
+                  Libp2p
                   LircClient
                   MDNS
                   MicroHttpd
@@ -210,10 +225,22 @@ set(optional_deps Alsa
                   Python
                   SmbClient
                   Sndio
+                  #soralog
                   UDEV
                   Udfread
                   XSLT
                   ${PLATFORM_OPTIONAL_DEPS})
+
+# ROS dependencies. Keep in alphabetical order please
+list(APPEND optional_deps
+  ament_cmake
+  image_transport
+  oasis_msgs
+  rcl_interfaces
+  rclcpp
+  rmw
+  sensor_msgs
+)
 
 # Check optional deps first, since their availability can influence required ones, e.g. ffmpeg
 core_optional_dep(${optional_deps})
@@ -247,6 +274,14 @@ if(ENABLE_AIRTUNES)
   if(SHAIRPLAY_FOUND)
     core_require_dep(Shairplay)
   endif()
+endif()
+
+if (ENABLE_ROS2)
+  list(APPEND DEP_DEFINES "-DHAS_ROS2=1")
+endif()
+
+if(ENABLE_LIBP2P)
+  list(APPEND DEP_DEFINES "-DHAS_LIBP2P=1")
 endif()
 
 # find all folders containing addon.xml.in
