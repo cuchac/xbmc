@@ -12,7 +12,6 @@
 #include "EventScanner.h"
 #include "addons/AddonButtonMap.h"
 #include "addons/AddonManager.h"
-#include "addons/addoninfo/AddonInfo.h"
 #include "addons/addoninfo/AddonType.h"
 #include "addons/gui/GUIDialogAddonSettings.h"
 #include "addons/gui/GUIWindowAddonBrowser.h"
@@ -52,7 +51,6 @@
 #include "messaging/ApplicationMessenger.h"
 #include "messaging/ThreadMessage.h"
 #include "peripherals/dialogs/GUIDialogPeripherals.h"
-#include "settings/SettingAddon.h"
 #include "settings/Settings.h"
 #include "settings/SettingsComponent.h"
 #include "settings/lib/Setting.h"
@@ -616,14 +614,6 @@ void CPeripherals::GetSettingsFromMappingsFile(
         int iValue = currentNode->Attribute("value") ? atoi(currentNode->Attribute("value")) : 0;
         setting = std::make_shared<CSettingInt>(strKey, iLabelId, iValue, enums);
       }
-    }
-    else if (StringUtils::EqualsNoCase(strSettingsType, "addon"))
-    {
-      std::string addonFilter = XMLUtils::GetAttribute(currentNode, "addontype");
-      ADDON::AddonType addonType = ADDON::CAddonInfo::TranslateType(addonFilter);
-      std::string strValue = XMLUtils::GetAttribute(currentNode, "value");
-      setting = std::make_shared<CSettingAddon>(strKey, iLabelId, strValue);
-      static_cast<CSettingAddon&>(*setting).SetAddonType(addonType);
     }
     else
     {

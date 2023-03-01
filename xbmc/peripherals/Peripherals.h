@@ -341,11 +341,6 @@ public:
    */
   KODI::GAME::CControllerManager& GetControllerProfiles() { return m_controllerProfiles; }
 
-  /*!
-   * \brief Get a mutex that allows for add-on install tasks to block on each other
-   */
-  CCriticalSection& GetAddonInstallMutex() { return m_addonInstallMutex; }
-
 private:
   bool LoadMappings();
   bool GetMappingForDevice(const CPeripheralBus& bus, PeripheralScanResult& result) const;
@@ -366,6 +361,5 @@ private:
   std::unique_ptr<CEventScanner> m_eventScanner;
   mutable CCriticalSection m_critSectionBusses;
   mutable CCriticalSection m_critSectionMappings;
-  CCriticalSection m_addonInstallMutex;
 };
 } // namespace PERIPHERALS

@@ -46,7 +46,6 @@ std::string CAddonButtonMap::Location(void) const
 
 bool CAddonButtonMap::Load(void)
 {
-  std::string controllerAppearance;
   FeatureMap features;
   DriverMap driverMap;
   PrimitiveVector ignoredPrimitives;
@@ -54,7 +53,6 @@ bool CAddonButtonMap::Load(void)
   bool bSuccess = false;
   if (auto addon = m_addon.lock())
   {
-    bSuccess |= addon->GetAppearance(m_device, controllerAppearance);
     bSuccess |= addon->GetFeatures(m_device, m_strControllerId, features);
     bSuccess |= addon->GetIgnoredPrimitives(m_device, ignoredPrimitives);
   }
@@ -72,7 +70,6 @@ bool CAddonButtonMap::Load(void)
 
   {
     std::unique_lock<CCriticalSection> lock(m_mutex);
-    m_controllerAppearance = std::move(controllerAppearance);
     m_features = std::move(features);
     m_driverMap = std::move(driverMap);
     m_ignoredPrimitives = CPeripheralAddonTranslator::TranslatePrimitives(ignoredPrimitives);
@@ -92,21 +89,6 @@ bool CAddonButtonMap::IsEmpty(void) const
   std::unique_lock<CCriticalSection> lock(m_mutex);
 
   return m_driverMap.empty();
-}
-
-std::string CAddonButtonMap::GetAppearance() const
-{
-  std::unique_lock<CCriticalSection> lock(m_mutex);
-
-  return m_controllerAppearance;
-}
-
-bool CAddonButtonMap::SetAppearance(const std::string& controllerId) const
-{
-  if (auto addon = m_addon.lock())
-    return addon->SetAppearance(m_device, controllerId);
-
-  return false;
 }
 
 bool CAddonButtonMap::GetFeature(const CDriverPrimitive& primitive, FeatureName& feature)

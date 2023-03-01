@@ -118,9 +118,7 @@ void CGUIDialogPeripherals::Show(CPeripherals& manager)
 
         // Open settings dialog
         pSettingsDialog->SetFileItem(pItem.get());
-        pSettingsDialog->RegisterPeripheralManager(manager);
         pSettingsDialog->Open();
-        pSettingsDialog->UnregisterPeripheralManager();
       }
     }
   } while (pDialog->IsConfirmed());

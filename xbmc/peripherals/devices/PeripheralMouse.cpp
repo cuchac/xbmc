@@ -76,9 +76,6 @@ void CPeripheralMouse::UnregisterMouseDriverHandler(MOUSE::IMouseDriverHandler* 
 
 GAME::ControllerPtr CPeripheralMouse::ControllerProfile() const
 {
-  if (m_controllerProfile)
-    return m_controllerProfile;
-
   return m_manager.GetControllerProfiles().GetDefaultMouse();
 }
 
