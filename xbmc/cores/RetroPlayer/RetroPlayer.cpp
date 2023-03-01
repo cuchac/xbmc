@@ -9,7 +9,6 @@
 #include "RetroPlayer.h"
 
 #include "FileItem.h"
-#include "GUIInfoManager.h"
 #include "RetroPlayerAutoSave.h"
 #include "RetroPlayerInput.h"
 #include "ServiceBroker.h"
@@ -43,7 +42,6 @@
 #include "guilib/WindowIDs.h"
 #include "input/actions/Action.h"
 #include "input/actions/ActionIDs.h"
-#include "interfaces/AnnouncementManager.h"
 #include "messaging/ApplicationMessenger.h"
 #include "utils/JobManager.h"
 #include "utils/StringUtils.h"
