@@ -32,7 +32,6 @@ void CGameInfoTag::Reset()
   m_strFormat.clear();
   m_strCartridgeType.clear();
   m_strGameClient.clear();
-  m_strCaption.clear();
 }
 
 CGameInfoTag& CGameInfoTag::operator=(const CGameInfoTag& tag)
@@ -53,7 +52,6 @@ CGameInfoTag& CGameInfoTag::operator=(const CGameInfoTag& tag)
     m_strFormat = tag.m_strFormat;
     m_strCartridgeType = tag.m_strCartridgeType;
     m_strGameClient = tag.m_strGameClient;
-    m_strCaption = tag.m_strCaption;
   }
   return *this;
 }
@@ -93,8 +91,6 @@ bool CGameInfoTag::operator==(const CGameInfoTag& tag) const
         return false;
       if (m_strGameClient != tag.m_strGameClient)
         return false;
-      if (m_strCaption != tag.m_strCaption)
-        return false;
     }
   }
   return true;
@@ -118,7 +114,6 @@ void CGameInfoTag::Archive(CArchive& ar)
     ar << m_strFormat;
     ar << m_strCartridgeType;
     ar << m_strGameClient;
-    ar << m_strCaption;
   }
   else
   {
@@ -136,7 +131,6 @@ void CGameInfoTag::Archive(CArchive& ar)
     ar >> m_strFormat;
     ar >> m_strCartridgeType;
     ar >> m_strGameClient;
-    ar >> m_strCaption;
   }
 }
 
@@ -156,7 +150,6 @@ void CGameInfoTag::Serialize(CVariant& value) const
   value["format"] = m_strFormat;
   value["cartridgetype"] = m_strCartridgeType;
   value["gameclient"] = m_strGameClient;
-  value["caption"] = m_strCaption;
 }
 
 void CGameInfoTag::ToSortable(SortItem& sortable, Field field) const

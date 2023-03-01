@@ -9,7 +9,6 @@
 #pragma once
 
 #include "AddonClass.h"
-#include "games/tags/GameInfoTag.h"
 
 namespace KODI
 {
@@ -235,23 +234,6 @@ public:
 #ifdef DOXYGEN_SHOULD_USE_THIS
   ///
   /// \ingroup python_InfoTagGame
-  /// @brief \python_func{ getCaption() }
-  /// Gets a rich presence evaluation of the game's state.
-  ///
-  /// @return [string] overview
-  ///
-  ///
-  ///-----------------------------------------------------------------------
-  /// @python_v20 New function added.
-  ///
-  getCaption();
-#else
-  String getCaption();
-#endif
-
-#ifdef DOXYGEN_SHOULD_USE_THIS
-  ///
-  /// \ingroup python_InfoTagGame
   /// @brief \python_func{ setTitle(title) }
   /// Sets the title of the game.
   ///
@@ -385,23 +367,6 @@ public:
   void setGameClient(const String& gameClient);
 #endif
 
-#ifdef DOXYGEN_SHOULD_USE_THIS
-  ///
-  /// \ingroup python_InfoTagGame
-  /// @brief \python_func{ setCaption(gameClient) }
-  /// Sets the caption of the game.
-  ///
-  /// @param caption         string - caption.
-  ///
-  ///
-  ///-----------------------------------------------------------------------
-  /// @python_v20 New function added.
-  ///
-  setCaption(...);
-#else
-  void setCaption(const String& caption);
-#endif
-
 #ifndef SWIG
   static void setTitleRaw(KODI::GAME::CGameInfoTag* infoTag, const String& title);
   static void setPlatformRaw(KODI::GAME::CGameInfoTag* infoTag, const String& platform);
@@ -411,7 +376,6 @@ public:
   static void setOverviewRaw(KODI::GAME::CGameInfoTag* infoTag, const String& overview);
   static void setYearRaw(KODI::GAME::CGameInfoTag* infoTag, unsigned int year);
   static void setGameClientRaw(KODI::GAME::CGameInfoTag* infoTag, const String& gameClient);
-  static void setCaptionRaw(KODI::GAME::CGameInfoTag* infoTag, const String& caption);
 #endif
 };
 
