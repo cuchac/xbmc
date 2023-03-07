@@ -300,7 +300,7 @@ bool CShaderPresetGL::CreateShaderTextures()
 
     if (texture->getMTexture() <= 0)
     {
-      CLog::Log(LOGERROR, "Couldn't create a texture for video shader %s.",
+      CLog::Log(LOGERROR, "Couldn't create a texture for video shader {}.",
                 pass.sourcePath.c_str());
       return false;
     }

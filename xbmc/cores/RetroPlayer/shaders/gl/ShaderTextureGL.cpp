@@ -31,7 +31,7 @@ bool CShaderTextureGL::CreateFBO(int width, int height)
 
   if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
   {
-    CLog::Log(LOGERROR, "%s: Framebuffer is not complete!", __func__);
+    CLog::Log(LOGERROR, "{}: Framebuffer is not complete!", __func__);
     UnbindFBO();
     return false;
   }
